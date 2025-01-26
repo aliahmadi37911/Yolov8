@@ -4,5 +4,6 @@ runs/*
 datasets/*
 via/*
 yolo/*
-
+*.mp4
+*.mov
 

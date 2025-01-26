@@ -3,12 +3,12 @@ import shutil
 import random
 
 # Base folder paths
-BASE_FOLDER = "D:/Work/WatchTower/Yolo-v8/train0/"
+BASE_FOLDER = "D:/Work/WatchTower/Yolo-v8/YOLOV8/"
 IMAGE_DATA_PATH = os.path.join(BASE_FOLDER, 'yolo/v1/images/')
 LABEL_DATA_PATH = os.path.join(BASE_FOLDER, 'yolo/v1/labels/')
 
 # Output folder paths
-BASE_OUTPUT_FOLDER = "D:/Work/WatchTower/Yolo-v8/train0/datasets/"
+BASE_OUTPUT_FOLDER = "D:/Work/WatchTower/Yolo-v8/YOLOV8/datasets/"
 TRAIN_IMAGE_FOLDER = os.path.join(BASE_OUTPUT_FOLDER, 'images/train')
 VAL_IMAGE_FOLDER = os.path.join(BASE_OUTPUT_FOLDER, 'images/val')
 TRAIN_LABEL_FOLDER = os.path.join(BASE_OUTPUT_FOLDER, 'labels/train')
