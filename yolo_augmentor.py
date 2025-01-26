@@ -25,10 +25,10 @@ def read_bboxes_from_file(file_path):
 def augment_image(image, bboxes, class_labels):
     # Define the augmentation pipeline
     transform = album.Compose([
+        album.Rotate(limit=0,p=0),
+        album.VerticalFlip(p=0),
         album.HorizontalFlip(p=0.5),
-        album.VerticalFlip(p=0.5),
         album.RandomBrightnessContrast(p=0.2),
-        album.Rotate(limit=40, p=0.5),
         album.Resize(height=640, width=640),  # Resize to YOLOv8 input size
     ], bbox_params=album.BboxParams(format='yolo', label_fields=['class_labels']))
 
@@ -79,6 +79,5 @@ def process_images_in_folder(images_folder, labels_folder):
                             # Assuming class labels are still the same
                             f.write(f'0 {bbox[0]} {bbox[1]} {bbox[2]} {bbox[3]}\n')  # Change '0' to the appropriate class index if needed
                     
-# Example usage
 if __name__ == "__main__":
     process_images_in_folder(IMG_PATH, LABEL_PATH)

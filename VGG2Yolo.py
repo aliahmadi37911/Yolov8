@@ -103,15 +103,20 @@ if not os.path.exists(OUTPUT_PATH):
     
     
 # Process each JSON annotation file in the specified directory
-for dataset_name in os.listdir(JSON_PATH):
-    if dataset_name.endswith(('.json', '.JSON')):
-        zip_file_path = os.path.join(IMAGE_PATH, dataset_name.replace('.json', '.zip'))
-        
-        # Check if the zip file exists
-        if os.path.isfile(zip_file_path):
-            extract_to = IMAGE_PATH
-            unzip_file(zip_file_path, extract_to)
-            process_json_file(dataset_name)
-        else:
-            print(f"Zip file not found for {dataset_name}: {zip_file_path}")
+def converVGGtoYolo():
+    for dataset_name in os.listdir(JSON_PATH):
+        if dataset_name.endswith(('.json', '.JSON')):
+            zip_file_path = os.path.join(IMAGE_PATH, dataset_name.replace('.json', '.zip'))
+            
+            # Check if the zip file exists
+            if os.path.isfile(zip_file_path):
+                extract_to = IMAGE_PATH
+                unzip_file(zip_file_path, extract_to)
+                process_json_file(dataset_name)
+            else:
+                print(f"Zip file not found for {dataset_name}: {zip_file_path}")
+            
+            
+if __name__ == "__main__":
+    converVGGtoYolo()
         

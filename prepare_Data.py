@@ -43,7 +43,7 @@ def get_all_folders(base_folder):
             non_empty_folders.append(item)
     return non_empty_folders
 
-def split_folders(all_folders, val_size=0.2, random_seed=42):
+def split_folders(all_folders, val_size=0.1, random_seed=42):
     """Randomly split folders into training and validation sets."""
     random.seed(random_seed)
     random.shuffle(all_folders)
@@ -63,17 +63,23 @@ def split_folders(all_folders, val_size=0.2, random_seed=42):
         copy_data(folder, os.path.join(IMAGE_DATA_PATH, folder), os.path.join(LABEL_DATA_PATH, folder), 
                   VAL_IMAGE_FOLDER, VAL_LABEL_FOLDER)
 
-# Clear the output folder if it exists
-if os.path.exists(BASE_OUTPUT_FOLDER):
-    shutil.rmtree(BASE_OUTPUT_FOLDER, ignore_errors=True)
 
-# Create the output folder structure
-os.makedirs(TRAIN_IMAGE_FOLDER, exist_ok=True)
-os.makedirs(VAL_IMAGE_FOLDER, exist_ok=True)
-os.makedirs(TRAIN_LABEL_FOLDER, exist_ok=True)
-os.makedirs(VAL_LABEL_FOLDER, exist_ok=True)
 
-# Get all non-empty folders and split them
-all_folders = get_all_folders(LABEL_DATA_PATH)
-print("Non-empty folders found:", all_folders)
-split_folders(all_folders, val_size=0.2, random_seed=42)
+def prepareData():
+    # Clear the output folder if it exists
+    if os.path.exists(BASE_OUTPUT_FOLDER):
+        shutil.rmtree(BASE_OUTPUT_FOLDER, ignore_errors=True)
+
+    # Create the output folder structure
+    os.makedirs(TRAIN_IMAGE_FOLDER, exist_ok=True)
+    os.makedirs(VAL_IMAGE_FOLDER, exist_ok=True)
+    os.makedirs(TRAIN_LABEL_FOLDER, exist_ok=True)
+    os.makedirs(VAL_LABEL_FOLDER, exist_ok=True)
+    # Get all non-empty folders and split them
+    all_folders = get_all_folders(LABEL_DATA_PATH)
+    print("Non-empty folders found:", all_folders)
+    split_folders(all_folders, val_size=0.1 , random_seed=42)
+    
+if __name__ == "__main__":
+    prepareData()
+
