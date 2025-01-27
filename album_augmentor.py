@@ -30,6 +30,10 @@ def augment_image(image, bboxes, class_labels):
         album.HorizontalFlip(p=0.5),
         album.RandomBrightnessContrast(p=0.2),
         album.Resize(height=640, width=640),  # Resize to YOLOv8 input size
+        album.GaussianBlur(p=0.2),
+        album.GaussNoise(p=0.1),
+        album.InvertImg(p=0.2),
+        album.ToGray(p=0.1)
     ], bbox_params=album.BboxParams(format='yolo', label_fields=['class_labels']))
 
     try:
@@ -75,9 +79,11 @@ def process_images_in_folder(images_folder, labels_folder):
                     output_bbox_path = os.path.join(labels_folder, foldername)
                     output_bbox_path = os.path.join(output_bbox_path, f'aug_{filename.replace(".jpg", ".txt").replace(".jpeg", ".txt").replace(".png", ".txt")}')
                     with open(output_bbox_path, 'w') as f:
+                        i = 0
                         for bbox in augmented_bboxes:
                             # Assuming class labels are still the same
-                            f.write(f'0 {bbox[0]} {bbox[1]} {bbox[2]} {bbox[3]}\n')  # Change '0' to the appropriate class index if needed
+                            f.write(f'{class_labels[i]} {bbox[0]} {bbox[1]} {bbox[2]} {bbox[3]}\n')  
+                            i += 1
                     
 if __name__ == "__main__":
     process_images_in_folder(IMG_PATH, LABEL_PATH)
