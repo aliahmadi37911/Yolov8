@@ -26,11 +26,11 @@ def read_bboxes_from_file(file_path):
 def augment_image(image, bboxes, class_labels):
     # Define the augmentation sequence
     seq = iaa.Sequential([
-        iaa.Rotate(rotate=(-30, 30)),  # Rotate between -30 and 30 degrees
-        iaa.Fliplr(0.5),                # Horizontal flip with 50% probability
+        iaa.Rotate(rotate=(0, 0)),  # Rotate between -30 and 30 degrees
+        iaa.Fliplr(0),                # Horizontal flip with 50% probability
         iaa.Flipud(0.5),                # Vertical flip with 50% probability
-        iaa.Multiply((0.8, 1.2)),       # Change brightness
-        iaa.LinearContrast((0.75, 1.5)), # Change contrast
+        iaa.Multiply((0.9, 1.1)),       # Change brightness
+        iaa.LinearContrast((0.9, 1.1)), # Change contrast
         iaa.Resize({"height": 640, "width": 640})  # Resize to 640x640
     ])
 

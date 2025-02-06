@@ -1,6 +1,7 @@
 import os
 import shutil
 import random
+import math 
 
 # Base folder paths
 BASE_FOLDER = "D:/Work/WatchTower/Yolo-v8/YOLOV8/"
@@ -45,13 +46,34 @@ def get_all_folders(base_folder):
 
 def split_folders(all_folders, val_size=0.1, random_seed=42):
     """Randomly split folders into training and validation sets."""
+
     random.seed(random_seed)
+
+    train_folders = []
+    val_folders = []
+    
+    # Shuffle the list to randomize the order
     random.shuffle(all_folders)
+    
+    num_val_folders = round(val_size*len(all_folders))
+    # print(num_val_folders)
+    
+    # random_indices = random.sample(range(len(all_folders)), num_val_folders)
+    # print("random_indices",random_indices)
+    # for i in random_indices: 
+    #     print("i",i)
+    #     val_folders.append(all_folders.pop(i-1))
 
-    split_index = int(len(all_folders) * (1 - val_size))
-    train_folders = all_folders[:split_index]
-    val_folders = all_folders[split_index:]
-
+    i = 0 
+    while( i<round(num_val_folders)):
+        i += 1
+        # Pick a random number between 0 and len(all_folders) - 1
+        random_index = random.randint(0, len(all_folders) - 1)
+        # Output the random index and the corresponding folder
+        val_folders.append(all_folders.pop(round(random_index)))
+    
+    train_folders = all_folders
+    
     print("Training folders:", train_folders)
     print("Validation folders:", val_folders)
 
@@ -78,7 +100,7 @@ def prepareData():
     # Get all non-empty folders and split them
     all_folders = get_all_folders(LABEL_DATA_PATH)
     print("Non-empty folders found:", all_folders)
-    split_folders(all_folders, val_size=0.1 , random_seed=42)
+    split_folders(all_folders, val_size=0.1 , random_seed=40)
     
 if __name__ == "__main__":
     prepareData()

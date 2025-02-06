@@ -2,8 +2,7 @@
 Dataset/*
 runs/*
 datasets/*
-via/*
+via/*/*/*.jpg
 yolo/*
 *.mp4
 *.mov
-

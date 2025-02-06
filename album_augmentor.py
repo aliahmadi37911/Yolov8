@@ -28,12 +28,11 @@ def augment_image(image, bboxes, class_labels):
         album.Rotate(limit=0,p=0),
         album.VerticalFlip(p=0),
         album.HorizontalFlip(p=0.5),
-        album.RandomBrightnessContrast(p=0.2),
+        album.RandomBrightnessContrast(p=0.1),
         album.Resize(height=640, width=640),  # Resize to YOLOv8 input size
         album.GaussianBlur(p=0.2),
         album.GaussNoise(p=0.1),
-        album.InvertImg(p=0.2),
-        album.ToGray(p=0.1)
+        album.InvertImg(p=0.2)
     ], bbox_params=album.BboxParams(format='yolo', label_fields=['class_labels']))
 
     try:

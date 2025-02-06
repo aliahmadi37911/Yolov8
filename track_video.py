@@ -2,6 +2,13 @@ from collections import defaultdict
 import cv2
 import numpy as np
 from ultralytics import YOLO
+from datetime import datetime
+
+# Get the current time
+current_time = datetime.now().strftime("%Y%m%d_%H%M")
+
+import torch
+torch.cuda.set_device(0)
 
 VIDEO_PATH = "./videos/2.mov"
 YOLO_MODEL_PATH = "best.pt"
@@ -17,7 +24,7 @@ def track_video(model_path, video_path):
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # define the codec and create VideoWriter object
-    output_path = "output_tracked_video.mp4"  # Output video file path
+    output_path = f"output_tracked_video_{current_time}.mp4"  # Output video file path
     out = cv2.VideoWriter(
         output_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (frame_width, frame_height)
     )
@@ -25,7 +32,10 @@ def track_video(model_path, video_path):
     while cap.isOpened():
         success, frame = cap.read()
         if success:
-            results = model.track(frame, persist=True)
+            # CPU
+            # results = model.track(frame, persist=True)
+            # GPU 
+            results = model.track(frame, persist=True, device=0)
             boxes = results[0].boxes.xywh.cpu()
             track_ids = (
                 results[0].boxes.id.int().cpu().tolist()
