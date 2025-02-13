@@ -18,7 +18,7 @@ model = YOLO('yolov8n.pt')  # Load YOLOv8 model for detection
 # print("Training complete on CPU.")
 
 # Train the model on a single GPU (GPU 0)
-results_gpu_1 = model.train(data=yamlPath, epochs=500, imgsz=640, device=0, workers=0, scale=0.9, fliplr=1, bgr = 0.1, mosaic=0.01, crop_fraction=1.0)
+results_gpu_1 = model.train(data=yamlPath, epochs=500, imgsz=640, device=0, workers=0, scale=0.1, fliplr=1, bgr = 0.1, mosaic=0.01, crop_fraction=0.5)
 print("Training complete on GPU 0.")
 
 # Evaluate the model's performance on the validation set

@@ -1,6 +1,7 @@
 
 Dataset/*
 runs/*
+runs_old/*
 datasets/*
 via/*/*/*.jpg
 yolo/*
